@@ -12,7 +12,8 @@ export interface IPlayerGovernmentRegistry
 
 export class PlayerGovernmentRegistry
   extends EntityRegistry<PlayerGovernment>
-  implements IPlayerGovernmentRegistry {
+  implements IPlayerGovernmentRegistry
+{
   constructor() {
     super(PlayerGovernment);
   }
@@ -28,6 +29,7 @@ export class PlayerGovernmentRegistry
   }
 }
 
-export const instance: PlayerGovernmentRegistry = new PlayerGovernmentRegistry();
+export const instance: PlayerGovernmentRegistry =
+  new PlayerGovernmentRegistry();
 
 export default PlayerGovernmentRegistry;

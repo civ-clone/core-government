@@ -10,7 +10,8 @@ export interface IPlayerGovernmentRegistry
 }
 export declare class PlayerGovernmentRegistry
   extends EntityRegistry<PlayerGovernment>
-  implements IPlayerGovernmentRegistry {
+  implements IPlayerGovernmentRegistry
+{
   constructor();
   getByPlayer(player: Player): PlayerGovernment;
 }

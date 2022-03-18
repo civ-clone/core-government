@@ -1,4 +1,8 @@
 import {
+  AvailableGovernmentRegistry,
+  instance as availableGovernmentRegistryInstance,
+} from './AvailableGovernmentRegistry';
+import {
   DataObject,
   IDataObject,
 } from '@civ-clone/core-data-object/DataObject';
@@ -9,8 +13,10 @@ import {
 import Government from './Government';
 import Player from '@civ-clone/core-player/Player';
 import Changed from './Rules/Changed';
+import Availability, { IAvailabilityRegistry } from './Rules/Availability';
 
 export interface IPlayerGovernment extends IDataObject {
+  available(): typeof Government[];
   current(): Government | null;
   is(...governments: typeof Government[]): boolean;
   player(): Player;
@@ -18,22 +24,31 @@ export interface IPlayerGovernment extends IDataObject {
 }
 
 export class PlayerGovernment extends DataObject implements IPlayerGovernment {
+  #availableGovernmentRegistry: AvailableGovernmentRegistry;
   #government: Government | null = null;
   #player: Player;
   #rulesRegistry: RuleRegistry;
 
   constructor(
     player: Player,
+    availableGovernmentRegistry: AvailableGovernmentRegistry = availableGovernmentRegistryInstance,
     rulesRegistry: RuleRegistry = rulesRegistryInstance
   ) {
     super();
 
     this.#player = player;
+    this.#availableGovernmentRegistry = availableGovernmentRegistry;
     this.#rulesRegistry = rulesRegistry;
 
-    this.addKey(
-      'current'
-      // 'player',
+    this.addKey('available', 'current');
+  }
+
+  available(): typeof Government[] {
+    return this.#availableGovernmentRegistry.filter(
+      (GovernmentType: typeof Government) =>
+        (this.#rulesRegistry as IAvailabilityRegistry)
+          .get(Availability)
+          .some((rule) => rule.validate(GovernmentType, this.#player))
     );
   }
 
