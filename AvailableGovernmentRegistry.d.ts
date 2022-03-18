@@ -7,6 +7,9 @@ export interface IAvailableGovernmentRegistry
   extends IConstructorRegistry<Government> {}
 export declare class AvailableGovernmentRegistry
   extends ConstructorRegistry<Government>
-  implements IAvailableGovernmentRegistry {}
+  implements IAvailableGovernmentRegistry
+{
+  constructor();
+}
 export declare const instance: AvailableGovernmentRegistry;
 export default AvailableGovernmentRegistry;

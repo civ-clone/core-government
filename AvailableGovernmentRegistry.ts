@@ -9,7 +9,12 @@ export interface IAvailableGovernmentRegistry
 
 export class AvailableGovernmentRegistry
   extends ConstructorRegistry<Government>
-  implements IAvailableGovernmentRegistry {}
+  implements IAvailableGovernmentRegistry
+{
+  constructor() {
+    super(Government);
+  }
+}
 
 export const instance = new AvailableGovernmentRegistry();
 
