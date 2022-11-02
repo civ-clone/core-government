@@ -10,10 +10,10 @@ import {
   RuleRegistry,
   instance as rulesRegistryInstance,
 } from '@civ-clone/core-rule/RuleRegistry';
+import Availability from './Rules/Availability';
+import Changed from './Rules/Changed';
 import Government from './Government';
 import Player from '@civ-clone/core-player/Player';
-import Changed from './Rules/Changed';
-import Availability, { IAvailabilityRegistry } from './Rules/Availability';
 
 export interface IPlayerGovernment extends IDataObject {
   available(): typeof Government[];
@@ -46,7 +46,7 @@ export class PlayerGovernment extends DataObject implements IPlayerGovernment {
   available(): typeof Government[] {
     return this.#availableGovernmentRegistry.filter(
       (GovernmentType: typeof Government) =>
-        (this.#rulesRegistry as IAvailabilityRegistry)
+        this.#rulesRegistry
           .get(Availability)
           .some((rule) => rule.validate(GovernmentType, this.#player))
     );

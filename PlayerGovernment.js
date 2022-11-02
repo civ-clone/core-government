@@ -16,8 +16,8 @@ exports.PlayerGovernment = void 0;
 const AvailableGovernmentRegistry_1 = require("./AvailableGovernmentRegistry");
 const DataObject_1 = require("@civ-clone/core-data-object/DataObject");
 const RuleRegistry_1 = require("@civ-clone/core-rule/RuleRegistry");
-const Changed_1 = require("./Rules/Changed");
 const Availability_1 = require("./Rules/Availability");
+const Changed_1 = require("./Rules/Changed");
 class PlayerGovernment extends DataObject_1.DataObject {
     constructor(player, availableGovernmentRegistry = AvailableGovernmentRegistry_1.instance, rulesRegistry = RuleRegistry_1.instance) {
         super();
